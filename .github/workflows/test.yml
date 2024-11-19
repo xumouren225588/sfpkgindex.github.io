@@ -1,0 +1,39 @@
+name: Add JSON Key-Value to Index.html and Push
+on:
+  push:
+    branches:
+      - main
+jobs:
+  add_key_value:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get input for key
+        id: key_input
+        run: |
+          echo "::set-output name=key::${{ github.event.inputs.key }}"
+
+      - name: Get input for value
+        id: value_input
+        run: |
+          echo "::set-output name=value::${{ github.event.inputs.value }}"
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Add key-value pair to JSON in Index.html
+        run: |
+          KEY="${{ steps.key_input.outputs.key }}"
+          VALUE="${{ steps.value_input.outputs.value }}"
+          # 使用jq读取Index.html中的JSON数据，添加键值对，再写回Index.html
+          jq --arg k "$KEY" --arg v "$VALUE".$k = $v Index.html > temp.json && mv temp.json Index.html
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "xumouren225588@163.com"
+          git config --local user.name "xumouren225588"
+          git add Index.html
+          git commit -m "Add key-value pair to JSON in Index.html"
+          git push
