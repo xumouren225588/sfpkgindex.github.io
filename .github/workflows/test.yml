@@ -31,6 +31,6 @@ jobs:
         run: |
           git config --local user.email "xumouren225588@163.com"
           git config --local user.name "xumouren225588"
-          git add Index.html
+          git add index.html
           git commit -m "Add key-value pair to JSON in Index.html"
           git push
