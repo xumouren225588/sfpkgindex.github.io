@@ -1,8 +1,15 @@
 name: Add JSON Key-Value to Index.html and Push
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      key:
+        description: 'JSON Key'
+        required: true
+        type: string
+      value:
+        description: 'JSON Value'
+        required: true
+        type: string
 jobs:
   add_key_value:
     runs-on: ubuntu-latest
@@ -10,25 +17,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Get input for key
-        id: key_input
-        run: |
-          echo "::set-output name=key::d"
-
-      - name: Get input for value
-        id: value_input
-        run: |
-          echo "::set-output name=value::c"
-
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Add key-value pair to JSON in Index.html
         run: |
-          KEY="${{ steps.key_input.outputs.key }}"
-          VALUE="${{ steps.value_input.outputs.value }}"
-          # 使用jq读取Index.html中的JSON数据，添加键值对，再写回Index.html
-          jq --arg k "$KEY" --arg v "$VALUE".$k = $v Index.html > temp.json && mv temp.json Index.html
+          KEY="${{ github.event.inputs.key }}"
+          VALUE="${{ github.event.inputs.value }}"
+          jq --arg k "$KEY" --arg v "$VALUE" '. + {($k): $v}' Index.html > temp.json && mv temp.json Index.html
 
       - name: Commit and push changes
         run: |
