@@ -1,1 +1,15 @@
-{"a":1,"b":2}
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="json-output"></div>
+    <script>
+        let data = {
+            "name": "John",
+            "age": 30,
+            "city": "New York"
+        };
+        let jsonString = JSON.stringify(data);
+        document.getElementById("json - output").innerHTML = jsonString;
+    </script>
+</body>
+</html>
