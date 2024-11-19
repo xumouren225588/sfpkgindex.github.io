@@ -13,12 +13,12 @@ jobs:
       - name: Get input for key
         id: key_input
         run: |
-          echo "::set-output name=key::${{ github.event.inputs.key }}"
+          echo "::set-output name=key::d"
 
       - name: Get input for value
         id: value_input
         run: |
-          echo "::set-output name=value::${{ github.event.inputs.value }}"
+          echo "::set-output name=value::c"
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
