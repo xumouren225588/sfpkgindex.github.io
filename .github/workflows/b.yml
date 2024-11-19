@@ -3,13 +3,16 @@ on:
   workflow_dispatch:
 jobs:
   add_key_value:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: main
-      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
 
       - name: bb
         run: |
