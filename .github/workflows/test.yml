@@ -25,7 +25,7 @@ jobs:
         run: |
           KEY="${{ github.event.inputs.key }}"
           VALUE="${{ github.event.inputs.value }}"
-          jq --arg k "$KEY" --arg v "$VALUE" '. + {($k): $v}' Index.html > temp.json && mv temp.json Index.html
+          jq --arg k "$KEY" --arg v "$VALUE" '. + {($k): $v}' index.html > temp.json && mv temp.json index.html
 
       - name: Commit and push changes
         run: |
