@@ -1,0 +1,32 @@
+name: Download Latest PaperMC
+
+on:
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  download-papermc:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get Latest PaperMC Version
+      run: |
+        latest_version=$(curl -s "https://papermc.io/ci/api/v1/jobs/Paper/promotions/latest" | jq -r '.builds[0].display_name')
+        echo "LATEST_VERSION=$latest_version" >> $GITHUB_ENV
+
+    - name: Download PaperMC
+      run: |
+        wget "https://papermc.io/ci/job/Paper/${{ env.LATEST_VERSION }}/artifact/*zip*/archive.zip" -O papermc.zip
+
+    - name: Unzip PaperMC
+      run: |
+        unzip papermc.zip
+
+    - name: Commit and push changes
+      run: |
+          git config --local user.email "xumouren225588@163.com"
+          git config --local user.name "xumouren225588"
+          git add index.html
+          git commit -m "Add key-value pair to JSON in Index.html"
+          git push
