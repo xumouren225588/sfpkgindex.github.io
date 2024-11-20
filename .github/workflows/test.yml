@@ -1,4 +1,4 @@
-name: Add JSON Key-Value to Index.html and Push
+name: Add JSON Key-Value to test.json and Push
 on:
   workflow_dispatch:
     inputs:
@@ -21,11 +21,11 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Add key-value pair to JSON in Index.html
+      - name: Add key-value pair to JSON
         run: |
           KEY="${{ github.event.inputs.key }}"
           VALUE="${{ github.event.inputs.value }}"
-          jq --arg k "$KEY" --arg v "$VALUE" '. + {($k): $v}' index.html > temp.json && mv temp.json index.html
+          jq --arg k "$KEY" --arg v "$VALUE" '. + {($k): $v}' test.json > temp.json && mv temp.json test.json
 
       - name: Commit and push changes
         run: |
