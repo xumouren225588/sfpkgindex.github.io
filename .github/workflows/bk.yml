@@ -1,32 +1,30 @@
-name: Download Latest PaperMC
+name: Read JSON and Output to Markdown
 
-on:
-  workflow_dispatch: # 允许手动触发
+on: [push]
 
 jobs:
-  download-papermc:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-    - name: Get Latest PaperMC Version
-      run: |
-        latest_version=$(curl -s "https://papermc.io/ci/api/v1/jobs/Paper/promotions/latest" | jq -r '.builds[0].display_name')
-        echo "LATEST_VERSION=$latest_version" >> $GITHUB_ENV
+    - name: Read JSON properties
+      id: json_properties
+      uses: ActionsTools/read-json-action@main
+      with:
+        file_path: 'test.json'
 
-    - name: Download PaperMC
+    - name: Generate Markdown list
       run: |
-        wget "https://papermc.io/ci/job/Paper/${{ env.LATEST_VERSION }}/artifact/*zip*/archive.zip" -O papermc.zip
+        # 假设JSON文件中有一个数组，每个元素都是一个对象，我们需要提取对象中的特定属性
+        echo "## JSON Data List" > README.md
+        jq -r '.[] | "\(.name) - \(.description)"' test.json >> README.md
 
-    - name: Unzip PaperMC
+    - name: Commit Markdown list
       run: |
-        unzip papermc.zip
-
-    - name: Commit and push changes
-      run: |
-          git config --local user.email "xumouren225588@163.com"
-          git config --local user.name "xumouren225588"
-          git add index.html
-          git commit -m "Add key-value pair to JSON in Index.html"
-          git push
+        git config --local user.email "xumouren225588@163.com"
+        git config --local user.name "xumouren225588"
+        git add list.md
+        git commit -m "Update JSON data list in Markdown" || echo "No changes to commit"
+        git push
