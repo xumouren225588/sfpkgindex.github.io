@@ -15,6 +15,9 @@ jobs:
         run: |
           git remote add gitee https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_TOKEN }}@gitee.com/${{ secrets.GITEE_USERNAME }}/xumouren225588.github.io.git
           # 将your-gitee-repo-name替换为你在Gitee上对应的仓库名称
+      - name: Fetch full history from Gitee
+        run: |
+          git fetch gitee +refs/heads/*:refs/remotes/gitee/*
       - name: Push to Gitee
         run: |
           git push -f gitee main # 如果你的主分支不是master，需要修改为对应的分支名称
