@@ -26,7 +26,7 @@ jobs:
           KEY="${{ github.event.inputs.key }}"
           VALUE="${{ github.event.inputs.value }}"
           jq --arg k "$KEY" --arg v "$VALUE" '. + {($k): $v}' test.json > temp.json && mv temp.json test.json
-
+          python build.py
       - name: Commit and push changes
         run: |
           git config --local user.email "xumouren225588@163.com"
