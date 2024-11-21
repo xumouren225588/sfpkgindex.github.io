@@ -17,4 +17,4 @@ jobs:
           # 将your-gitee-repo-name替换为你在Gitee上对应的仓库名称
       - name: Push to Gitee
         run: |
-          git push gitee main # 如果你的主分支不是master，需要修改为对应的分支名称
+          git push -f gitee main # 如果你的主分支不是master，需要修改为对应的分支名称
