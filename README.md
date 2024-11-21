@@ -1,4 +1,6 @@
-# 应用列表
-- 应用名称&nbsp;&nbsp;应用编号
-- 360安全卫士&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gdtudghf
-- AppDT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hfghfgwi
+# 应用安装器索引
+| 应用名称 | ID |
+| --- | --- |
+| 360安全卫士 | gdtudghf |
+| AppDT | hfghfgwi |
+| k | 图恒宇 |
