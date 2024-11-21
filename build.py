@@ -15,7 +15,7 @@ readme_content += "- 应用名称\t应用编号\n"
 
 # 遍历JSON数据，格式化字符串
 for key, value in data.items():
-    readme_content += f"- {key}\t{value}\n"
+    readme_content += f"- {key}\t\t{value}\n"
 def convert_tabs_to_spaces(text):
     
 
