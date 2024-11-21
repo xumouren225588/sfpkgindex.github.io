@@ -35,7 +35,7 @@ def convert_tabs_to_spaces(text):
         new_line = line
         for pos in tab_positions:
             spaces_num = 8 - (pos % 8)
-            new_line = new_line.replace('\t', ' '*spaces_num, 1)
+            new_line = new_line.replace('\t', '&nbsp;'*spaces_num, 1)
 
         new_lines.append(new_line)
 
