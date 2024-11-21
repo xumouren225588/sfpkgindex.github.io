@@ -1,29 +1,24 @@
 import json
+import os
 
+# 假设你的JSON文件名为data.json，并且它位于当前目录下
+json_file_path = 'test.json'
+readme_file_path = 'README.md'
 
-def read_json_and_write_to_md(json_file_path, md_file_path):
-    # 读取JSON文件
-    with open(json_file_path, 'r') as json_file:
-        data = json.load(json_file)
+# 读取JSON文件
+with open(json_file_path, 'r', encoding='utf-8') as file:
+    data = json.load(file)
 
-    # 准备要写入Markdown文件的内容
-    markdown_content = "# 应用列表\n"
+# 准备写入到README.md的内容
+readme_content = "# 应用列表\n"
+readme_content += "- 应用名称\t应用编号\n"
 
-    for app in data:
-        app_name = app.get("应用名称", "")
-        app_id = app.get("应用编号", "")
-        markdown_content += f"- {app_name}\t{app_id}\n"
+# 遍历JSON数据，格式化字符串
+for key, value in data.items():
+    readme_content += f"- {key}\t{value}\n"
 
-        for key, value in app.items():
-            if key not in ["应用名称", "应用编号"]:
-                markdown_content += f"- {key}\t{value}\n"
+# 将格式化后的内容写入到README.md文件中
+with open(readme_file_path, 'w', encoding='utf-8') as file:
+    file.write(readme_content)
 
-    # 覆盖写入Markdown文件
-    with open(md_file_path, 'w') as md_file:
-        md_file.write(markdown_content)
-
-
-if __name__ == "__main__":
-    json_file_path = "test.json"  # 替换为实际的JSON文件路径
-    md_file_path = "README.md"  # 替换为实际的Markdown文件路径
-    read_json_and_write_to_md(json_file_path, md_file_path)
+print("README.md文件已更新。")
