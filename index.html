@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-height=1.0">
+    <title>Checkbox to JSON and Download</title>
+</head>
+
+<body>
+    <form id="myForm">
+        <input type="checkbox" id="option1" value="item_001">选项1<br>
+        <input type="checkbox" id="option2" value="item_002">选项2<br>
+        <input type="checkbox" id="option3" value="item_003">选项3<br>
+        <input type="submit" value="提交">
+    </form>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var selectedItems = [];
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+            checkboxes.forEach(function (checkbox) {
+                selectedItems.push(checkbox.value);
+            });
+
+            var jsonData = JSON.stringify(selectedItems);
+            console.log(jsonData);
+
+            // 创建一个临时的 <a> 元素用于下载
+            var link = document.createElement('a');
+            var blob = new Blob([jsonData], { type: 'text/plain' });
+            link.href = URL.createObjectURL(blob);
+            link.download = 'selected_items.txt';
+
+            // 模拟点击链接进行下载
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+
+</body>
+
+</html>
