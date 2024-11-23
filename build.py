@@ -82,3 +82,7 @@ html_template = f"""<!DOCTYPE html>
 
 </html>
 """
+# 这里可以将生成的html_template内容保存为一个新的HTML文件，比如：
+with open('index.html', 'w', encoding='utf-8') as html_file:
+    html_file.write(html_template)
+
