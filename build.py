@@ -56,4 +56,29 @@ html_template = f"""<!DOCTYPE html>
             event.preventDefault();
 
             var selectedItems = [];
-            var checkboxes = document.querySelectorAll('inp
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+            checkboxes.forEach(function (checkbox) {{
+                selectedItems.push(checkbox.value);
+            }});
+
+            var jsonData = JSON.stringify(selectedItems);
+            console.log(jsonData);
+
+            // 创建一个临时的 <a> 元素用于下载
+            var link = document.createElement('a');
+            var blob = new Blob([jsonData], {{ type: 'text/plain' }});
+            link.href = URL.createObjectURL(blob);
+            link.download = 'selected_items.txt';
+
+            // 模拟点击链接进行下载
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+
+</body>
+
+</html>
+"""
